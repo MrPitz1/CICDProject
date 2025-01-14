@@ -40,7 +40,7 @@ jobs:
           ssh-add ~/.ssh/id_ed5519
           ssh-keyscan -H dhbw.hoenle.xyz > ~/.ssh/known_hosts
         env:
-          SSH_AUTH_STOCK: /tmp/ssh_agent.sock
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
   check_format:
     runs-on: ubuntu-latest
 
