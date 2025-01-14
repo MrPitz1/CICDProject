@@ -28,7 +28,7 @@ jobs:
       - name: run_tests
         run: |
           cd backend
-          go test ./...
+          go test ./... -coverprofile=coverage.out && go tool cover -html=coverage.out -o coverage.html
   check_format:
     runs-on: ubuntu-latest
 
@@ -49,3 +49,4 @@ jobs:
       - name: chech_code_format_in_CI_pipeline
         run: |
           files=$(gofmt -l ./backend) && [ -z "$files" ]
+
