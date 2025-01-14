@@ -34,3 +34,20 @@ jobs:
         run: |
           cd backend
           go test ./...
+  check_format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: apply_code_format
+        run: |
+          gofmt -w ./backend
+          cd frontend; npx prettier --write .
+      
+      - name: check_code_format
+        run: |
+          gofmt -l ./backend
+          cd frontend; npx prettier --check .
+        
+      - name: chech_code_format_in_CI_pipeline
+        run: |
+          files=$(gofmt -l ./backend) && [ -z "$files" ]
