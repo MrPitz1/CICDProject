@@ -26,6 +26,8 @@ jobs:
     needs: build_frontend
 
     steps:
+      - name: Checkout_code
+        uses: actions/checkout@v3
 
       - name: install_go
         run: sudo apt install golang-go
@@ -38,6 +40,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout_code
+        uses: actions/checkout@v3
+      
       - name: apply_code_format
         run: |
           gofmt -w ./backend
