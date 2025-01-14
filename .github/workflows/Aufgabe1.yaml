@@ -16,5 +16,5 @@ jobs:
         run: sudo apt install golang-go
       - name: run_tests
         run: |
-          cd backend
+          cd ./backend
           go run ./...
