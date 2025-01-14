@@ -12,9 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout_code
+        uses: actions/checkout@v2
+
       - name: install_go
         run: sudo apt install golang-go
       - name: run_tests
         run: |
-          cd ./backend
+          cd backend
           go run ./...
