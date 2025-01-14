@@ -8,8 +8,20 @@ on:
       - opened
     branches: ["main"]
 jobs:
+  build_frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: build 
+        run: |
+          cd frontend
+          npm ci
+          npx ng build
+          cp -r frontend/dist/frontend/browser backend/cmd/strichliste/frontendDist
+
   unit_tests:
     runs-on: ubuntu-latest
+    needs: build_frontend
 
     steps:
       - name: Checkout_code
