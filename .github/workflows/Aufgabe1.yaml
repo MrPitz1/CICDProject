@@ -8,4 +8,13 @@ on:
       - opened
     branches: ["main"]
 jobs:
+  unit_tests:
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: install_go
+        run: sudo apt install golang-go
+      - name: run_tests
+        run: |
+          cd backend
+          go run ./...
