@@ -8,12 +8,24 @@ on:
       - opened
     branches: ["main"]
 jobs:
-  unit_tests:
+  build_frontend:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout_code
         uses: actions/checkout@v3
+
+      - name: build 
+        run: |
+          cd frontend
+          npm ci
+          npx ng build
+          cp -r dist/frontend/browser ../backend/cmd/strichliste/frontendDist
+  unit_tests:
+    runs-on: ubuntu-latest
+    needs: build_frontend
+
+    steps:
 
       - name: install_go
         run: sudo apt install golang-go
