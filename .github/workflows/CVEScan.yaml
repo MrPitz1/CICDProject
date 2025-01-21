@@ -1,12 +1,8 @@
 name: CVE-Scan
 
 on:
-  schedules:
+  schedule:
   - cron: '0 0 * * *'
-    displayName: Daily midnight build
-    branches:
-      include:
-      - main
 
 jobs:
       
