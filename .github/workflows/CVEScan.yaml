@@ -13,6 +13,15 @@ jobs:
     steps:
       - name: Checkout_code
         uses: actions/checkout@v3
-      
+        
+      - name: Manual Trivy Setup
+        uses: aquasecurity/setup-trivy@v0.2.0
+        with:
+          cache: true
+          version: v0.57.1
+   
+
       - name: Sec-test
         run: trivy fs --format template --output ./trivy-scan.html --template "@./trivy-html-report-template.tpl" .
+      
+        
