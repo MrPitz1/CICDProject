@@ -29,18 +29,6 @@ jobs:
         run: |
           cd backend
           go test ./... -coverprofile=coverage.out && go tool cover -html=coverage.out -o coverage.html
-        
-      - name: Setup SSH
-        run: |
-          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-          mkdir ~/.ssh
-          chmod 700 ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-add ~/.ssh/id_ed25519
-          ssh-keyscan -H dhbw.hoenle.xyz > ~/.ssh/known_hosts
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
   check_format:
     runs-on: ubuntu-latest
 
