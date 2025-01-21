@@ -10,12 +10,20 @@ updates:
     # Check the npm registry for updates every day (weekdays)
     schedule:
       interval: "daily"
+
+  # Enable version updates for gomod
   - package-ecosystem: "gomod"
-      groups:
-        golang:
-          applies-to: security-updates
-          patterns:
-            - "golang.org*"
+    # Look for `go.mod` files in the `root` directory
+    directory: "/"
+    # Check the Go module registry for updates every week
+    schedule:
+      interval: "weekly"
+    # Group configurations for security updates
+    groups:
+      golang:
+        patterns:
+          - "golang.org*"
+
   # Enable version updates for Docker
   - package-ecosystem: "docker"
     # Look for a `Dockerfile` in the `root` directory
