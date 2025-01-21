@@ -1,0 +1,17 @@
+name: CVE-Scan
+
+schedules:
+- cron: '0 0 * * *'
+  displayName: Daily midnight build
+  branches:
+    include:
+    - main
+
+jobs:
+      
+  CVE-Scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout_code
+        uses: actions/checkout@v3
