@@ -7,8 +7,8 @@ on:
     types:
       - opened
     branches: ["main"]
+
 jobs:
-      
   unit_tests:
     runs-on: ubuntu-latest
 
@@ -19,34 +19,38 @@ jobs:
       - name: install_go
         run: sudo apt install golang-go
 
-      - name: build 
+      - name: build
+        if: github.actor != 'dependabot[bot]' 
         run: |
           cd frontend
           npm ci
           npx ng build
           cp -r dist/frontend/browser ../backend/cmd/strichliste/frontendDist
+
       - name: run_tests
+        if: github.actor != 'dependabot[bot]' # Skip this step if the actor is Dependabot
         run: |
           cd backend
           go test ./... -coverprofile=coverage.out && go tool cover -html=coverage.out -o coverage.html
+
   check_format:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout_code
         uses: actions/checkout@v4
-      
+
       - name: apply_code_format
         run: |
           gofmt -w ./backend
           cd frontend; npx prettier --write .
-      
+
       - name: check_code_format
         run: |
           gofmt -l ./backend
           cd frontend; npx prettier --check .
-        
-      - name: chech_code_format_in_CI_pipeline
+
+      - name: check_code_format_in_CI_pipeline
+        if: github.actor != 'dependabot[bot]' # Skip this step if the actor is Dependabot
         run: |
           files=$(gofmt -l ./backend) && [ -z "$files" ]
-
