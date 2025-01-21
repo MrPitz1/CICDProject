@@ -13,3 +13,6 @@ jobs:
     steps:
       - name: Checkout_code
         uses: actions/checkout@v3
+      
+      - name: Sec-test
+        run: trivy fs --format template --output ./trivy-scan.html --template "@./trivy-html-report-template.tpl" .
