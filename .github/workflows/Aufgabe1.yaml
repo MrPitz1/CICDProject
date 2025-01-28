@@ -81,7 +81,5 @@ jobs:
           docker stop cicdproject_test
           docker rm cicdproject_test
           
-      - name: Build and push Docker image
-        run: |
-          docker build -t ghcr.io/mrpitz1/cicdproject:latest .
-          docker push ghcr.io/mrpitz1 /cicdproject:latest       
+      - name: Push Docker image
+        run: docker push ghcr.io/mrpitz1/cicdproject:latest  
