@@ -54,3 +54,23 @@ jobs:
         if: github.actor != 'dependabot[bot]' # Skip this step if the actor is Dependabot
         run: |
           files=$(gofmt -l ./backend) && [ -z "$files" ]
+
+  build_and_push_image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    # Run only on push to main, not for PRs or Dependabot
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor != 'dependabot[bot]'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}:latest .
+          docker push ghcr.io/${{ github.repository }}:latest          
