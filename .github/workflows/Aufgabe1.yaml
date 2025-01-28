@@ -72,8 +72,16 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run smoke tests
+        run: |
+          docker run -d --name cicdproject_test -p 8080:8080 ghcr.io/mrpitz1/cicdproject:latest
+          sleep 10 # wait for the container to be ready
+          curl -f http://localhost:8080/api/ping
+          docker stop cicdproject_test
+          docker rm cicdproject_test
           
       - name: Build and push Docker image
         run: |
           docker build -t ghcr.io/mrpitz1/cicdproject:latest .
-          docker push ghcr.io/mrpitz1/cicdproject:latest       
+          docker push ghcr.io/mrpitz1 /cicdproject:latest       
