@@ -73,6 +73,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: install_go
+        run: sudo apt install golang-go
+      
       - name: Build Docker image
         run: docker build -t ghcr.io/mrpitz1/cicdproject:latest .
 
