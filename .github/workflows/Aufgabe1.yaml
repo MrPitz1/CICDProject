@@ -80,7 +80,8 @@ jobs:
         run: |
           docker run -d --name cicdproject_test -p 8080:8080 ghcr.io/mrpitz1/cicdproject:latest
           sleep 10 
-          go run ./backend/cmd/smoketest/
+          cd ./backend/cmd/smoketest/
+          go run main.go
           docker stop cicdproject_test
           docker rm cicdproject_test
           
