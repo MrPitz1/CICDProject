@@ -1,5 +1,5 @@
 # FRONTEND STAGE
-FROM docker.io/node:22.11.0 AS frontend-build
+FROM docker.io/node:23.7.0 AS frontend-build
 WORKDIR /app
 COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci
