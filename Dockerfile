@@ -7,7 +7,7 @@ COPY frontend/ ./
 RUN npx ng build
 
 # BACKEND STAGE
-FROM docker.io/golang:1.23.4 AS backend-build
+FROM docker.io/golang:1.23.6 AS backend-build
 WORKDIR /app
 COPY backend/go.mod backend/go.sum ./
 RUN go mod download
